@@ -1,5 +1,5 @@
 # MITRE Service-Now Security Tags
-Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags
+Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags 
 
 - Pulls down the latest framework from https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json.
 - Uses the Service-Now API to import MITRE Tactics as "Tag Groups"
@@ -7,6 +7,10 @@ Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags
 - Associates each Technique per Tactic as a Tag under these "Tag Groups".
   - Techniques named similarly i.e [T1078] - Valid Accounts
 - Rerunning the script will update any existing Tactic/Techniques built by the script with the latest info from MITRE json.
+
+
+## Requirements
+- This requires Security Incident Operations/Security Incident Response installed in your Service-Now instance.
 
 ## Installation/Config
   Script needs minor changes for your Service-Now instance
