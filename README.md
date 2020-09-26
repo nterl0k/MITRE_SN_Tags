@@ -15,7 +15,7 @@ Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags
 ## Installation/Config
   Script needs minor changes for your Service-Now instance
   - Change line 6 '$global:SNInstncAPI = "CHANGME" #YOUR INSTANCE HERE' to your instance short name: The [MYINSTANCE] in [MYINSTANCE].service-now.com
-  - Script ask for credentials with access your instance, this should an account allowed to add/remove tags.
+  - Script asks for credentials with access to your instance, this should an account allowed to add/remove tags.
   
   
 ### Script Running - Output shows success/failure/updates
