@@ -204,8 +204,9 @@ Try{
             #$SysID
         }
 
-        Foreach($Tech in ($MITRETechs | ?{$_.kill_chain_phases.phase_name -eq $Group.x_mitre_shortname})){
-            
+        $MITRETechsT = $MITRETechs | ?{$_.kill_chain_phases.phase_name -eq $Group.x_mitre_shortname} | sort {@($_.external_references.external_id)[0]}
+
+        Foreach($Tech in $MITRETechsT){         
             
             If($Tags.result | ?{$_.security_tag_group.value -eq $SysID -and $_.name -match "\[$(@($Tech.external_references.external_id)[0])\]"}){
                 Write-host "Updating Technique ID [$(@($Tech.external_references.external_id)[0])] - $($Tech.name)" -ForegroundColor Yellow
