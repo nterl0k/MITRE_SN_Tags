@@ -1,4 +1,21 @@
-﻿[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
+<#
+.SYNOPSIS
+    Script that walks the MITRE ATT&CK framework and adds tags to Service-Now.
+
+.DESCRIPTION
+    A script that will download the JSON version of ATT&CK from the MITRE Githib, then parse
+    the contents of the download for tactics and techniques. The data is then injected into 
+    Service-Now as Security Tag GRoups and Security Tags.
+
+.EXAMPLE
+    C:\PS>./MITRE_SN_Tags.ps1 
+            This runs the command in default mode, will prompt for SNow credentials 
+.NOTES
+    Author: Nterl0k
+    Date:   Oct 15, 2020    
+#>
+
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 
 $global:SNAPI_SI = "service-now.com/api/now/v1/table/sn_si_incident"
 $global:SNAPI_SI_Tag = "service-now.com/api/now/table/sn_sec_cmn_security_tag"
@@ -14,7 +31,6 @@ $global:MITRE = "https://raw.githubusercontent.com/mitre/cti/master/enterprise-a
 $global:MITREData = ""
 $Global:MITRETactics = ""
 $Global:MITRETechs = ""
-
 
 #Get SN Creds and store it.
 $global:SNCreds = Get-Credential
@@ -203,35 +219,31 @@ Try{
             $SysID = ($TagGroups.result | ?{$_.name -cmatch "\[$($Group.external_references.external_id)\]"})[0].sys_id
             #$SysID
         }
-
+        
         $MITRETechsT = $MITRETechs | ?{$_.kill_chain_phases.phase_name -eq $Group.x_mitre_shortname} | sort {@($_.external_references.external_id)[0]}
 
-        Foreach($Tech in $MITRETechsT){         
+        Foreach($Tech in $MITRETechsT){            
+                
+            $TagIn = ""
+            $DescIn = ""
+            $TechShort = [decimal]((@($Tech.external_references.external_id)[0])[1..10] -join "")
+            $TagIn = "[T$TechShort] - $($Tech.name)"
+            $DescIn = $Tech.description -replace "[^\x00-\x7F]", ""
+            $ordr = [int]($TechShort*1000)
             
-            If($Tags.result | ?{$_.security_tag_group.value -eq $SysID -and $_.name -match "\[$(@($Tech.external_references.external_id)[0])\]"}){
-                Write-host "Updating Technique ID [$(@($Tech.external_references.external_id)[0])] - $($Tech.name)" -ForegroundColor Yellow
+            If($Tags.result | ?{$_.security_tag_group.value -eq $SysID -and $_.name -match "\[$TechShort\]"}){
+                Write-host "Updating Technique ID [T$TechShort] - $($Tech.name)" -ForegroundColor Yellow
                 $TSysID = ""
                 $TSysID = ($Tags.result | ?{$_.security_tag_group.value -eq $SysID -and $_.name -match "\[$(@($Tech.external_references.external_id)[0])\]"})[0].sys_id
                 #$TSysID
                 
-                $TagIn = ""
-                $TagIn = "[$(@($Tech.external_references.external_id)[0])] - $($Tech.name)"
-                $DescIn = ""
-                $DescIn = $Tech.description -replace "[^\x00-\x7F]", ""
-                $ordr = [int]([decimal]((@($Tech.external_references.external_id)[0])[1..10] -join "")*1000)
-
                 Tag-Update -TagID $TSysID -TagName $TagIn -TagDesc $DescIn -TagGroupIn $SysID -Order $ordr -color 'blue'
             }
     
             #Create if not
             Else{
                 Write-Host "Building Technique ID [$(@($Tech.external_references.external_id)[0])] - $($Tech.name)"               
-                $TagIn = ""
-                $TagIn = "[$(@($Tech.external_references.external_id)[0])] - $($Tech.name)"
-                $DescIn = ""
-                $DescIn = $Tech.description -replace "[^\x00-\x7F]", ""
-                $ordr = [int]([decimal]((@($Tech.external_references.external_id)[0])[1..10] -join "")*1000)
-
+               
                 Tag-Create -TagName $TagIn -TagDesc $DescIn -TagGroupIn $SysID -Order $ordr -color 'blue'
             }        
             
@@ -244,3 +256,4 @@ Try{
 Catch{
     Write-Host "Something bad happened, good luck figuring it out." -ForegroundColor Red
 }
+
