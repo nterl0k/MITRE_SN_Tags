@@ -1,5 +1,5 @@
 # MITRE Service-Now Security Tags
-Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags 
+Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags [Updated for Oct 2020 MITRE changes]
 
 - Pulls down the latest framework from https://raw.githubusercontent.com/mitre/cti/master/enterprise-attack/enterprise-attack.json.
 - Uses the Service-Now API to import MITRE Tactics as "Tag Groups"
