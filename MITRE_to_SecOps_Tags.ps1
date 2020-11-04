@@ -231,7 +231,7 @@ Try{
             $DescIn = $Tech.description -replace "[^\x00-\x7F]", ""
             $ordr = [int]($TechShort*1000)
             
-            If($Tags.result | ?{$_.security_tag_group.value -eq $SysID -and $_.name -match "\[$TechShort\]"}){
+            If($Tags.result | ?{$_.security_tag_group.value -eq $SysID -and $_.name -match "\[T$TechShort\]"}){
                 Write-host "Updating Technique ID [T$TechShort] - $($Tech.name)" -ForegroundColor Yellow
                 $TSysID = ""
                 $TSysID = ($Tags.result | ?{$_.security_tag_group.value -eq $SysID -and $_.name -match "\[$(@($Tech.external_references.external_id)[0])\]"})[0].sys_id
