@@ -303,22 +303,22 @@ Try{
     }
     
     Write-Progress -Activity "MITRE to SecOps Tagging" -Completed
+    
+    Write-Host "MITRE to SecOps Tagging Completed."
+    Write-Host "`t Tactics created: " -NoNewline
+    Write-Host "$(@($ReportOut | ?{$_.Type -eq "Tactic" -and $_.Action -eq "Create" }).Count)" -ForegroundColor Green
+    Write-Host "`t Tactics updated: " -NoNewline
+    Write-Host "$(@($ReportOut | ?{$_.Type -eq "Tactic" -and $_.Action -eq "Update" }).Count)" -ForegroundColor Yellow
+    Write-Host "`t Tactics failed: " -NoNewline
+    Write-Host "$(@($ReportOut | ?{$_.Type -eq "Tactic" -and $_.Result -eq "Fail" }).Count)" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "`t Technique created: " -NoNewline
+    Write-Host "$(@($ReportOut | ?{$_.Type -eq "Technique" -and $_.Action -eq "Create" }).Count)" -ForegroundColor Green
+    Write-Host "`t Technique updated: " -NoNewline
+    Write-Host "$(@($ReportOut | ?{$_.Type -eq "Technique" -and $_.Action -eq "Update" }).Count)" -ForegroundColor Yellow
+    Write-Host "`t Technique failed: " -NoNewline
+    Write-Host "$(@($ReportOut | ?{$_.Type -eq "Technique" -and $_.Result -eq "Fail" }).Count)" -ForegroundColor Red
 }
 Catch{
     Write-Host "Something bad happened, good luck figuring it out." -ForegroundColor Red
 }
-
-Write-Host "MITRE to SecOps Tagging Completed."
-Write-Host "`t Tactics created: " -NoNewline
-Write-Host "$(@($ReportOut | ?{$_.Type -eq "Tactic" -and $_.Action -eq "Create" }).Count)" -ForegroundColor Green
-Write-Host "`t Tactics updated: " -NoNewline
-Write-Host "$(@($ReportOut | ?{$_.Type -eq "Tactic" -and $_.Action -eq "Update" }).Count)" -ForegroundColor Yellow
-Write-Host "`t Tactics failed: " -NoNewline
-Write-Host "$(@($ReportOut | ?{$_.Type -eq "Tactic" -and $_.Result -eq "Fail" }).Count)" -ForegroundColor Red
-Write-Host ""
-Write-Host "`t Technique created: " -NoNewline
-Write-Host "$(@($ReportOut | ?{$_.Type -eq "Technique" -and $_.Action -eq "Create" }).Count)" -ForegroundColor Green
-Write-Host "`t Technique updated: " -NoNewline
-Write-Host "$(@($ReportOut | ?{$_.Type -eq "Technique" -and $_.Action -eq "Update" }).Count)" -ForegroundColor Yellow
-Write-Host "`t Technique failed: " -NoNewline
-Write-Host "$(@($ReportOut | ?{$_.Type -eq "Technique" -and $_.Result -eq "Fail" }).Count)" -ForegroundColor Red
