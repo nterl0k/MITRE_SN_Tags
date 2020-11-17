@@ -51,8 +51,8 @@ Function Get-MITRE{
     }
 
     #Get MITRE Stages-Tactics
-    $Global:MITRETactics = $MITREData.objects | ?{$_.type -eq 'x-mitre-tactic'} # ($MITREData.objects | ?{$_.kill_chain_phases.kill_chain_name -eq 'mitre-attack'}).kill_chain_phases.phase_name | Select -Unique | %{"$($TextInfo.ToTitleCase($_))"}
-    $Global:MITRETechs = $MITREData.objects | ?{$_.type -eq 'attack-pattern'}
+    $Global:MITRETactics = $MITREData.objects | ?{$_.type -eq 'x-mitre-tactic'}
+    $Global:MITRETechs = $MITREData.objects | ?{($_.type -eq 'attack-pattern') -and ($_.revoked -ne $true)} # Remove revoked Technique IDs
     Write-Host "`nMITRE ATT&CK Framework currently contains:`n" -NoNewline
     Write-Host "`t$($Global:MITRETactics.count)" -NoNewline -ForegroundColor Green
     Write-Host " total tactics`n" -NoNewline
