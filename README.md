@@ -22,7 +22,7 @@ Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags 
   - Script now produces a simple HTML report upon completion that can be used as a change/validation artifact.
      -   This can be disabled by setting the variable '$global:report' on line 40 to $false</p>  
   
-### Script Running - Output shows. Change the  success/failure/updates at end. 
+### Script Running - Output shows. Shows the success/failure/updates at end of run. 
 ![alt text](https://github.com/nterl0k/MITRE_SN_Tags/blob/master/images/Script%20Running2.png?raw=true)
 
 ### MITRE Tactics(Tag Groups)
