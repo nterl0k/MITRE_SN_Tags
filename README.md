@@ -24,6 +24,7 @@ Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags 
   
 ### Script Running - Output shows. Shows the success/failure/updates at end of run. 
 ![alt text](https://github.com/nterl0k/MITRE_SN_Tags/blob/master/images/Script%20Running2.png?raw=true)
+![alt text](https://github.com/nterl0k/MITRE_SN_Tags/blob/master/images/Script%20Done1.png?raw=true)
 
 ### MITRE Tactics(Tag Groups)
 ![alt text](https://github.com/nterl0k/MITRE_SN_Tags/blob/master/images/MITRE%20Tag%20Groups.png?raw=true)
