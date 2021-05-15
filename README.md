@@ -23,7 +23,7 @@ Import MITRE Tactics and Techniques as Service-Now Security Tag Groups and Tags 
      -   This can be disabled by setting the variable '$global:report' on line 40 to $false</p>  
   
 ### Script Running - Output shows. Change the  success/failure/updates at end. 
-![alt text](https://github.com/nterl0k/MITRE_SN_Tags/blob/master/images/Script%20Running.png?raw=true)
+![alt text](https://github.com/nterl0k/MITRE_SN_Tags/blob/master/images/Script%20Running2.png?raw=true)
 
 ### MITRE Tactics(Tag Groups)
 ![alt text](https://github.com/nterl0k/MITRE_SN_Tags/blob/master/images/MITRE%20Tag%20Groups.png?raw=true)
